@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveTransit", "LiveTransit\LiveTransit.csproj", "{7942D62B-8FB4-4941-8024-799C6037CC58}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LiveTransit.API", "LiveTransit.API\LiveTransit.API.csproj", "{5C140EA3-9FEA-4576-8A2E-4570A47C0EBB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7942D62B-8FB4-4941-8024-799C6037CC58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7942D62B-8FB4-4941-8024-799C6037CC58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7942D62B-8FB4-4941-8024-799C6037CC58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C140EA3-9FEA-4576-8A2E-4570A47C0EBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C140EA3-9FEA-4576-8A2E-4570A47C0EBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C140EA3-9FEA-4576-8A2E-4570A47C0EBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C140EA3-9FEA-4576-8A2E-4570A47C0EBB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
