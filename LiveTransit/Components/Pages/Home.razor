@@ -3,17 +3,6 @@
 
 <PageTitle>LiveTransit</PageTitle>
 
-@code {
-	[Inject]
-	public IRouteService routeService { get; set; }
-
-	public string route { get; set; }
-
-	protected override async Task OnInitializedAsync() {
-		route = await routeService.GetRoute();
-	}
-}
-
 <h1>Wyszukaj swoją trasę:</h1>
 <main>
 	<div class="p-3 mb-4 rounded-1 bg-info container">

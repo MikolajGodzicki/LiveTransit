@@ -1,13 +1,24 @@
-﻿@page "/Linie/{numer_linii}"
+﻿@page "/Linie/{line}"
+@using LiveTransit.Services.Routes
+
 @attribute [StreamRendering]
 
 @code {
     [Parameter]
-    public string? numer_linii { get; set; }
+    public string line { get; set; } = default!;
+
+    [Inject]
+    public IRouteService routeService { get; set; }
+
+    public string route { get; set; }
+
+    protected override async Task OnInitializedAsync() {
+        route = await routeService.GetRoute(line);
+    }
 }
 
 <PageTitle>Linie</PageTitle>
 
-<h2>@numer_linii</h2>
+<h1>Opis</h1>
 
-<h1>Autobusy</h1>
+<h2>@route</h2>

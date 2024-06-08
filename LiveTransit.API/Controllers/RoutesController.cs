@@ -20,7 +20,11 @@ namespace LiveTransit.API.Controllers {
 
 		[HttpGet("{line}")] 
 		public string GetRoute(string line) {
-			string route = feed.Routes.First().LongName;
+			string route = feed.Routes.First(e => e.ShortName == line).LongName;
+
+			var fullRoute = route.Split('-').SkipLast(1);
+
+			route = string.Join('-', fullRoute);
 
 			return route;
 		}

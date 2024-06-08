@@ -9,12 +9,12 @@ namespace LiveTransit.Services.Routes {
 			_httpClient = httpClient;
 		}
 		
-		public async Task<string> GetRoute() {
-			string route = await _httpClient.GetStringAsync("Routes/A39");
+		public async Task<string> GetRoute(string line) {
+			string route = await _httpClient.GetStringAsync($"Routes/{line}");
 			return route;
 		}
 
-		public async Task<IEnumerable<string>> GetRoutes() {
+        public async Task<IEnumerable<string>> GetRoutes() {
 			HttpContent content = _httpClient.GetAsync("Routes").Result.Content;
 
 			var route = await content.ReadAsStringAsync();
