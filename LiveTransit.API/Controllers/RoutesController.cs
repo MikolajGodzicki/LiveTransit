@@ -29,8 +29,14 @@ namespace LiveTransit.API.Controllers {
 			return route;
 		}
 
-		[HttpGet("")] 
-		public IEnumerable<string> GetRoutes() {
+        [HttpGet("")]
+        public IEnumerable<string> GetLinesWithRoutes() {
+            IEnumerable<string> route = feed.Routes.Select(e => $"{e.ShortName}|{string.Join('-', e.LongName.Split('-').SkipLast(1))}");
+            return route;
+        }
+
+        [HttpGet("/Lines")] 
+		public IEnumerable<string> GetLines() {
 			return feed.Routes.Select(e => e.ShortName);
 		}
 	}

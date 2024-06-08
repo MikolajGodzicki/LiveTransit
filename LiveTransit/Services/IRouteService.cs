@@ -3,6 +3,8 @@
     public interface IRouteService
     {
         Task<string> GetRoute(string line);
-        Task<IEnumerable<string>> GetRoutes();
+        Task<IEnumerable<string>> GetLinesWithRoutes();
+        Task<IEnumerable<string>> GetLines();
+        Task<IEnumerable<string>> GetRoutesFrom(int startIndex, int count);
     }
 }

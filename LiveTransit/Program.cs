@@ -1,8 +1,7 @@
 using LiveTransit.Components;
 using LiveTransit.Services;
 
-namespace LiveTransit
-{
+namespace LiveTransit {
     public class Program {
         public static void Main(string[] args) {
             var builder = WebApplication.CreateBuilder(args);
@@ -34,7 +33,7 @@ namespace LiveTransit
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode();
 
-            app.Run();
+            app.RunAsync();
         }
     }
 }

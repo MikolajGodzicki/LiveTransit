@@ -1,47 +1,32 @@
 ﻿@page "/Linie"
 @using LiveTransit.Services
-@attribute [StreamRendering]
 
 <PageTitle>Linie</PageTitle>
-
-@code {
-    [Inject]
-    public IRouteService routeService { get; set; }
-
-    public IEnumerable<string> routes { get; set; }
-
-    protected override async Task OnInitializedAsync() {
-        routes = (await routeService.GetRoutes()).ToList();
-    }
-
-
-    [Inject]
-    public IRouteService routeService1 { get; set; }
-
-    public string route1 { get; set; }
-}
 
 <h1>Autobusy</h1>
 
 @foreach (string route in routes)
 {
+    string[] croppedRoute = route.Split('|');
+    string routeLine = croppedRoute.First();
+    string routeFull = croppedRoute.Last();
     <div class="card" style="margin-top:5px">
         <div class="card-body linie">
             <div>
                 <div class="container">
                     <div class="row">
                         <div class="col tlo">
-                            <p style="background: #3366ff; color:white" class="centered">@route</p>
+                            <p style="background: #3366ff; color:white" class="centered">@routeLine</p>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col title">
-                            <p class="centered"><strong>@route1</strong></p>
+                            <p class="centered"><strong>@routeFull</strong></p>
                         </div>
                     </div>
                     <div>
                         <div class="col details">
-                            <a href="/Linie/@route">
+                            <a href="/Linie/@routeLine">
                                 <p class="btn5 centered">Szczegóły</p>
                             </a>
                         </div>
@@ -50,4 +35,47 @@
             </div>
         </div>
     </div>
+} 
+
+@if (!isLoading && !allDataLoaded) {
+    <button @onclick="() => LoadMore()">Load More</button>
+} else if (isLoading) {
+    <p>Loading...</p>
+} else if (allDataLoaded) {
+    <p>All data loaded.</p>
+}
+
+
+@code {
+    [Inject]
+    public IRouteService routeService { get; set; }
+
+    private bool isLoading;
+    private bool allDataLoaded;
+
+    private int currentIndex = 0;
+    private const int pageSize = 10;
+
+    public List<string> routes { get; set; }
+
+    protected override async Task OnInitializedAsync() {
+        routes = new List<string>();//(await routeService.GetLinesWithRoutes()).ToList();
+        await LoadMore();
+    }
+
+    public async Task LoadMore() {
+        Console.WriteLine("LoadMore button clicked."); 
+
+        isLoading = true;
+        var newItems = (await routeService.GetRoutesFrom(currentIndex, pageSize)).ToList();
+
+        if (newItems.Count() == 0) {
+            allDataLoaded = true;
+        } else {
+            routes.AddRange(newItems);
+            currentIndex += pageSize;
+        }
+        isLoading = false;
+        StateHasChanged();
+    }
 }
