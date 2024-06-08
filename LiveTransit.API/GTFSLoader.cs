@@ -17,8 +17,17 @@ namespace LiveTransit.API {
             feed = GetFeed(GetPathToData());
         }
 
+        /// <summary>
+        /// Get path to data
+        /// </summary>
+        /// <returns></returns>
         private string GetPathToData() => Directory.GetCurrentDirectory() + "\\Data";
 
+        /// <summary>
+        /// Get data from selected path
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         private GTFSFeed GetFeed(string path) => new GTFSReader<GTFSFeed>().Read(path);
 
     }
