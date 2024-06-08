@@ -33,7 +33,7 @@ namespace LiveTransit {
             app.MapRazorComponents<App>()
                 .AddInteractiveServerRenderMode();
 
-            app.RunAsync();
+            app.Run();
         }
     }
 }
