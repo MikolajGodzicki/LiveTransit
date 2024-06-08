@@ -1,9 +1,21 @@
 ﻿@page "/"
-@using LiveTransit.API
+@using LiveTransit.Services.Routes
 
 <PageTitle>Rozkład jazdy</PageTitle>
 
+@code {
+	[Inject]
+	public IRouteService routeService { get; set; }
+
+	public string route { get; set; }
+
+	protected override async Task OnInitializedAsync() {
+		route = await routeService.GetRoute();
+	}
+}
+
 <h1>Obowiązujący rozkład jazdy</h1>
+<h2>@route</h2>
 <main>
 	<div class="w-75 p-3 bg-primary">
 		<label for="czas_od">Od:</label>

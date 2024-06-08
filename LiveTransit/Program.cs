@@ -1,4 +1,5 @@
 using LiveTransit.Components;
+using LiveTransit.Services.Routes;
 
 namespace LiveTransit {
     public class Program {
@@ -8,6 +9,12 @@ namespace LiveTransit {
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+
+			builder.Services.AddHttpClient<IRouteService, RouteService>(client =>
+			{
+				client.BaseAddress = new Uri("https://localhost:7189/");
+			});
+
 
             var app = builder.Build();
 

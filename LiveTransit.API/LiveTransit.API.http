@@ -1,0 +1,6 @@
+@LiveTransit.API_HostAddress = http://localhost:5243
+
+GET {{LiveTransit.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
