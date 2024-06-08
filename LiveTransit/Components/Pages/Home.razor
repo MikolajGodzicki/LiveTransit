@@ -15,30 +15,44 @@
 }
 
 <h1>Obowiązujący rozkład jazdy</h1>
+<<<<<<< Updated upstream
+=======
+<h2>@route</h2>
+>>>>>>> Stashed changes
 <h1>Wyszukaj swoją trasę:</h1>
 <main>
-	<div class="w-75 p-3 mb-4 rounded-1 bg-secondary">
-		<label for="czas_od" class="form-label">Wyjazd od godziny:</label><br />
-		<input type="range" class="form-range w-25" min="0" max="24" value="0" id="czas_od"><br />
-		<label for="czas_do" class="form-label">Przybycie na godzine:</label><br />
-		<input type="range" class="form-range w-25" min="0" max="24" value="24" id="czas_do"><br />
-		<select class="form-select m-3 d-inline" style="width: auto;">
-			<option hidden selected>Wybierz typ</option>
-			<option value="v1" class="pl-0">typ1</option>
-			<option value="v2">typ2</option>
-			<option value="v3">typ3</option>
-		</select>
+	<div class="p-3 mb-4 rounded-1 bg-info container">
 		<div class="row">
 			<div class="col">
-				<input type="text" class="form-control" placeholder="First name" aria-label="First name">
+				<label for="czas_od" class="form-label">Odjazd:</label><br />
+				<input type="range" class="form-range" min="0" max="24" value="0" id="czas_od">
 			</div>
 			<div class="col">
-				<input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+				<label for="czas_do" class="form-label">Przyjazd:</label><br />
+				<input type="range" class="form-range" min="0" max="24" value="24" id="czas_do">
 			</div>
 		</div>
-		<button class="btn btn-primary m-3">Wyszukaj</button>
+		<div class="row">
+			<div class="col">
+				<input type="text" class="form-control" placeholder="Punkt startu" aria-label="First name">
+			</div>
+			<div class="col">
+				<input type="text" class="form-control" placeholder="Punkt docelowy" aria-label="Last name">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<select class="form-select m-3 d-inline" style="width: auto;">
+					<option hidden selected>Wybierz typ</option>
+					<option value="v1" class="pl-0">typ1</option>
+					<option value="v2">typ2</option>
+					<option value="v3">typ3</option>
+				</select>
+				<button class="btn btn-primary m-3">Wyszukaj</button>
+			</div>
+		</div>
 	</div>
-	<div class="w-75 p-3 rounded-1 bg-primary">
+	<div class="p-3 rounded-1 bg-primary container">
 		<p>Wyniki</p>
 	</div>
 </main>
