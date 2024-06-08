@@ -13,29 +13,41 @@
     protected override async Task OnInitializedAsync() {
         routes = (await routeService.GetRoutes()).ToList();
     }
+
+
+    [Inject]
+    public IRouteService routeService1 { get; set; }
+
+    public string route1 { get; set; }
 }
 
 <h1>Autobusy</h1>
 
-<div class="card">
-    <div class="card-body linie">
-        <div class="container">
-            @foreach (string route in routes) {
-                <div class="row">
-                    <div class="col col-lg-2 tlo">
-                        <p style="background: #ffc20e">@route</p>
+@foreach (string route in routes)
+{
+    <div class="card" style="margin-top:5px">
+        <div class="card-body linie">
+            <div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col tlo">
+                            <p style="background: #3366ff; color:white" class="centered">@route</p>
+                        </div>
                     </div>
-                    <div class="col title">
-                        <p><strong>Kraków Główny - Trzebinia - Oświęcim</strong></p>
+                    <div class="row">
+                        <div class="col title">
+                            <p class="centered"><strong>@route1</strong></p>
+                        </div>
                     </div>
-                    <div class="col col-lg-2 details">
-                        <a href="/Linie/@route">
-                            <p class="btn5">Szczegóły</p>
-                        </a>
+                    <div>
+                        <div class="col details">
+                            <a href="/Linie/@route">
+                                <p class="btn5 centered">Szczegóły</p>
+                            </a>
+                        </div>
                     </div>
                 </div>
-            }
-            
+            </div>
         </div>
     </div>
-</div>
+}
