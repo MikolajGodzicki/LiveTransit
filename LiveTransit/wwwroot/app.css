@@ -49,3 +49,36 @@ h1:focus {
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
 }
+
+.tlo {
+    float:left;
+    border-radius:5px;
+}
+
+    .tlo p {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+
+.desc{
+    width: 75%;
+    float:left;
+}
+.desc .title{
+    width:35%;
+    float: left;
+}
+.desc .details{
+    width:25%;
+    float: right;
+}
+
+.linie {
+    justify-content: center;
+    text-align: center;
+}
+
+p {
+    margin-top: 16px;
+    padding: 15px;
+}
