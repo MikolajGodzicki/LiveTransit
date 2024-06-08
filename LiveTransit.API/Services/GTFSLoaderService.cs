@@ -6,13 +6,14 @@ namespace LiveTransit.API.Services {
 		GTFSReader<GTFSFeed> gTFSReader;
 
 		GTFSFeed gTFSFeed;
+
 		public GTFSLoaderService() {
 			gTFSReader = new GTFSReader<GTFSFeed>();
 			gTFSFeed = gTFSReader.Read(Directory.GetCurrentDirectory() + "\\Data");
 		}
 
-		public IUniqueEntityCollection<GTFS.Entities.Route> LoadRoutes() {
-			return gTFSFeed.Routes;
+		public GTFSFeed Load() {
+			return gTFSFeed;
 		}
 	}
 }

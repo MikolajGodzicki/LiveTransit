@@ -11,16 +11,28 @@ namespace LiveTransit.API.Controllers {
 		/// <summary>
 		/// Data serialized from file
 		/// </summary>
-		IUniqueEntityCollection<GTFS.Entities.Route> routes;
+		GTFSFeed feed;
 
 		public RoutesController(ILoader gtfsLoader)
         {
-			routes = gtfsLoader.LoadRoutes();
+			feed = gtfsLoader.Load();
         }
 
-		[HttpGet("")] 
-		public string GetRoute() {
-			return routes.First().ShortName;
+		[HttpGet("{line}")] 
+		public string GetRoute(string line) {
+			/*
+			feed.CalendarDates.Join(
+					  feed.Routes, 
+					  calendar => calendar.ServiceId, 
+					  route => route.Id, 
+					  (student, standard) => new 
+					  {
+						  StudentName = student.StudentName,
+						  StandardName = standard.StandardName
+					  });*/
+			string route = feed.Routes.First().LongName;
+
+			return route.Substring(0, route.Length - 4);
 		}
 	}
 }
