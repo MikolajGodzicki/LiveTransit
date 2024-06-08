@@ -20,19 +20,14 @@ namespace LiveTransit.API.Controllers {
 
 		[HttpGet("{line}")] 
 		public string GetRoute(string line) {
-			/*
-			feed.CalendarDates.Join(
-					  feed.Routes, 
-					  calendar => calendar.ServiceId, 
-					  route => route.Id, 
-					  (student, standard) => new 
-					  {
-						  StudentName = student.StudentName,
-						  StandardName = standard.StandardName
-					  });*/
 			string route = feed.Routes.First().LongName;
 
-			return route.Substring(0, route.Length - 4);
+			return route;
+		}
+
+		[HttpGet("")] 
+		public IEnumerable<string> GetRoutes() {
+			return feed.Routes.Select(e => e.ShortName);
 		}
 	}
 }

@@ -7,11 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LiveTransit.API\LiveTransit.API.csproj" />
+    <Compile Remove="Components\Pages\Nowy folder\**" />
+    <Content Remove="Components\Pages\Nowy folder\**" />
+    <EmbeddedResource Remove="Components\Pages\Nowy folder\**" />
+    <None Remove="Components\Pages\Nowy folder\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Components\Pages\Nowy folder\" />
+    <ProjectReference Include="..\LiveTransit.API\LiveTransit.API.csproj" />
   </ItemGroup>
 
 </Project>

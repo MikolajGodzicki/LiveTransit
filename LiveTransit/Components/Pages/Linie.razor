@@ -1,24 +1,39 @@
 ﻿@page "/Linie"
+@using LiveTransit.Services.Routes
 @attribute [StreamRendering]
 
 <PageTitle>Linie</PageTitle>
+
+@code {
+    [Inject]
+    public IRouteService routeService { get; set; }
+
+    public IEnumerable<string> routes { get; set; }
+
+    protected override async Task OnInitializedAsync() {
+        routes = (await routeService.GetRoutes()).ToList();
+    }
+}
 
 <h1>Autobusy</h1>
 
 <div class="card">
     <div class="card-body linie">
         <div class="container">
-            <div class="row">
-                <div class="col col-lg-2 tlo">
-                    <p style="background: #ffc20e">SKA3</p>
+            @foreach (string route in routes) {
+                <div class="row">
+                    <div class="col col-lg-2 tlo">
+                        <p style="background: #ffc20e">@route</p>
+                    </div>
+                    <div class="col title">
+                        <p><strong>Kraków Główny - Trzebinia - Oświęcim</strong></p>
+                    </div>
+                    <div class="col col-lg-2 details">
+                        <p class="btn5">Szczegóły</p>
+                    </div>
                 </div>
-                <div class="col title">
-                    <p><strong>Kraków Główny - Trzebinia - Oświęcim</strong></p>
-                </div>
-                <div class="col col-lg-2 details">
-                    <p class="btn5">Szczegóły</p>
-                </div>
-            </div>
+            }
+            
         </div>
     </div>
 </div>

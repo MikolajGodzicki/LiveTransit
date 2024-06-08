@@ -1,6 +1,13 @@
-﻿@page "/Linie"
+﻿@page "/Linie/{numer_linii}"
 @attribute [StreamRendering]
 
+@code {
+    [Parameter]
+    public string? numer_linii { get; set; }
+}
+
 <PageTitle>Linie</PageTitle>
+
+<h2>@numer_linii</h2>
 
 <h1>Autobusy</h1>
