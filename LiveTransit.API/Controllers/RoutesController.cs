@@ -42,11 +42,13 @@ namespace LiveTransit.API.Controllers {
 			return feed.Routes.Select(e => e.ShortName);
 		}
 
+		[HttpGet("/Stops")]
+		public IEnumerable<string> GetStops() {
+			return feed.Stops.Select(e => e.Name);
+		}
+
 		[HttpGet("/Full")]
         public IEnumerable<RouteModel> GetFullRoutes(int startHours, int endHours, string startCity, string endCity) {
-            //IEnumerable<TimeOfDay> times = [new TimeOfDay() { Hours = 17, Minutes = 52, Seconds = 0 }, new TimeOfDay() { Hours = 18, Minutes = 12, Seconds = 0}];
-
-            //var selectedRoutes = feed.Routes.Where(e => e.LongName.Split('-').SkipLast(1).Contains(startCity));
             var result = feed.Routes
                     .Join(feed.Trips,
                           t1 => t1.Id,
