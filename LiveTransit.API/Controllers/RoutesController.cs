@@ -43,9 +43,8 @@ namespace LiveTransit.API.Controllers {
 		}
 
 		[HttpGet("/Full")]
-        public IEnumerable<Model> GetFullRoutes(string startCity, string endCity) { //[FromQuery] IEnumerable<TimeOfDay> times
-
-            IEnumerable<TimeOfDay> times = [new TimeOfDay() { Hours = 17, Minutes = 52, Seconds = 0 }, new TimeOfDay() { Hours = 18, Minutes = 12, Seconds = 0}];
+        public IEnumerable<RouteModel> GetFullRoutes(int startHours, int endHours, string startCity, string endCity) {
+            //IEnumerable<TimeOfDay> times = [new TimeOfDay() { Hours = 17, Minutes = 52, Seconds = 0 }, new TimeOfDay() { Hours = 18, Minutes = 12, Seconds = 0}];
 
             //var selectedRoutes = feed.Routes.Where(e => e.LongName.Split('-').SkipLast(1).Contains(startCity));
             var result = feed.Routes
@@ -61,7 +60,7 @@ namespace LiveTransit.API.Controllers {
                           combined => combined.Table3.StopId,
                           t4 => t4.Id,
                           (combined, t4) => new { combined.Table1, combined.Table2, combined.Table3, Table4 = t4 })
-                    .Select(x => new Model() {
+                    .Select(x => new RouteModel() {
                         ShortName = x.Table1.ShortName,
                         Id = x.Table2.Id,
                         ArrivalTime = x.Table3.ArrivalTime,
@@ -72,7 +71,7 @@ namespace LiveTransit.API.Controllers {
             var resultGrouped = result.GroupBy(x => x.Id)
                     .ToDictionary(
                         group => group.Key,
-                        group => group.Select(x => new Model() {
+                        group => group.Select(x => new RouteModel() {
                             Id = x.Id,
                             ShortName = x.ShortName,
                             ArrivalTime = x.ArrivalTime,
@@ -81,18 +80,22 @@ namespace LiveTransit.API.Controllers {
                         }).ToList()
                     );
 
-            List<Model> finalValues = new List<Model>();
+            List<RouteModel> finalValues = new List<RouteModel>();
             
             foreach ( var group in resultGrouped ) {
                 var values = group.Value
                             .SkipWhile(e => !e.Name.Contains(startCity))
-                            .TakeWhile(e => !e.Name.Contains(endCity))
-                            .SkipWhile(e => e.ArrivalTime < times.First())
-                            .TakeWhile(e => e.DepartureTime < times.Last());
+                            .TakeWhile(e => !e.Name.Contains(endCity));
 
-                //finalValues.AddRange(values);
-                if ( values.Count() > 2 ) {
-                    finalValues.AddRange([values.First(), values.Last()]);
+                if ( values is null ||  values.Count() == 0) {
+                    continue;
+                }
+
+                var endValues = values.SkipWhile(e => e.ArrivalTime.Value.Hours < startHours)
+                            .TakeWhile(e => e.ArrivalTime.Value.Hours < endHours);
+
+                if (endValues.Count() > 1 ) {
+                    finalValues.AddRange([endValues.First()]);
                 }
             }
             
@@ -100,7 +103,7 @@ namespace LiveTransit.API.Controllers {
 		}
     }
 
-    public class Model { 
+    public class RouteModel { 
         public string ShortName { get; set; }
         public string Id { get; set; }
         public TimeOfDay? ArrivalTime { get; set; }
