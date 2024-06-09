@@ -47,11 +47,13 @@
 		</div>
 	</div>
 
-	<h2>Wyniki:</h2>
 	<div class="p-3 rounded-1 container">
 		@if (routes is null) {
 			<p>Prosimy o wyszukanie </p>
 		} else {
+
+			<h2>Wyniki:</h2>
+
 			@if (routes.Count() == 0) {
 				<div class="card" style="margin-top:5px">
 					<div class="card-body linie">
