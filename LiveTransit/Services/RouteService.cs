@@ -80,5 +80,19 @@ namespace LiveTransit.Services
 
 			return routes;
 		}
+
+		public async Task<IEnumerable<string>> GetStops() {
+			HttpContent content = _httpClient.GetAsync("Stops").Result.Content;
+
+			var route = await content.ReadAsStringAsync();
+			var routes = JsonSerializer.Deserialize<IEnumerable<string>>(route);
+
+
+			if (routes is null) {
+				return Enumerable.Empty<string>();
+			}
+
+			return routes;
+		}
 	}
 }

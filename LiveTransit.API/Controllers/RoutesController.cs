@@ -86,8 +86,8 @@ namespace LiveTransit.API.Controllers {
             
             foreach ( var group in resultGrouped ) {
                 var values = group.Value
-                            .SkipWhile(e => !e.Name.Contains(startCity))
-                            .TakeWhile(e => !e.Name.Contains(endCity));
+                            .SkipWhile(e => e.Name != startCity)
+                            .TakeWhile(e => e.Name != endCity);
 
                 if ( values is null ||  values.Count() == 0) {
                     continue;

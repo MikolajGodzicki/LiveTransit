@@ -9,5 +9,6 @@ namespace LiveTransit.Services
         Task<IEnumerable<string>> GetLines();
         Task<IEnumerable<string>> GetRoutesFrom(int startIndex, int count);
 		Task<IEnumerable<RouteModelInternal>> GetFullRoutes(int startHours, int endHours, string startCity, string endCity);
+        Task<IEnumerable<string>> GetStops();
 	}
 }
