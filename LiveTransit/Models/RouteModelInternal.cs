@@ -1,11 +1,12 @@
 ﻿using GTFS.Entities;
 
 namespace LiveTransit.Models {
+    [Serializable]
     public class RouteModelInternal {
-        public string ShortName { get; set; }
-        public string Id { get; set; }
-        public TimeOfDay? ArrivalTime { get; set; }
-        public TimeOfDay? DepartureTime { get; set; }
-        public string Name { get; set; }
+        public string shortName { get; set; }
+        public string id { get; set; }
+        public TimeOfDay arrivalTime { get; set; }
+        public TimeOfDay departureTime { get; set; }
+        public string name { get; set; }
     }
 }

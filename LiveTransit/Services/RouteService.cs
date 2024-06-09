@@ -57,7 +57,7 @@ namespace LiveTransit.Services
         }
 
 		public async Task<IEnumerable<RouteModelInternal>> GetFullRoutes(int startHours, int endHours, string startCity, string endCity) {
-			var uriBuilder = new UriBuilder("Full");
+			var uriBuilder = new UriBuilder("https://localhost:7189/Full");
 
 			var query = System.Web.HttpUtility.ParseQueryString(uriBuilder.Query);
 			query["startHours"] = startHours.ToString();

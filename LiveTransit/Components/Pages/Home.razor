@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using LiveTransit.Models
 @using LiveTransit.Services
+
 @rendermode InteractiveServer
 
 <PageTitle>LiveTransit</PageTitle>
@@ -40,6 +41,16 @@
 	</div>
 	<div class="p-3 rounded-1 bg-primary container">
 		<p>Wyniki</p>
+		@if (routes is null) {
+			<p>Prosimy o wyszukanie </p>
+		} else {
+			foreach (RouteModelInternal route in routes) {
+				<h2>@route.shortName</h2>
+				<h3>@route.arrivalTime</h3>
+				<h3>@route.departureTime</h3>
+				<h4>@route.name</h4>
+			}
+		}
 	</div>
 </main>
 
@@ -48,8 +59,8 @@
 @code {
 	private int startHours = 0;
 	private int endHours = 24;
-	private string startCity;
-	private string endCity;
+	private string startCity = "Zaczarnie";
+	private string endCity = "Brzozówka";
 
 	[Inject]
 	private IJSRuntime JSRuntime { get; set; }
@@ -60,17 +71,10 @@
 	public IEnumerable<RouteModelInternal> routes { get; set; }
 
 	public async Task Find() {
-
+		Console.WriteLine("Find");
 		startHours = int.Parse(await JSRuntime.InvokeAsync<string>("getInnerHtml", "rangeValue1"));
 		endHours = int.Parse(await JSRuntime.InvokeAsync<string>("getInnerHtml", "rangeValue2"));
 
 		routes = await routeService.GetFullRoutes(startHours, endHours, startCity, endCity);
-		/*
-		@foreach (RouteModelInternal route in routes) {
-			<h2>@route.ShortName</h2>
-			<h3>@route.ArrivalTime</h3>
-			<h3>@route.DepartureTime</h3>
-			<h4>@route.Name</h4>
-		}*/
 	}
 }
