@@ -8,7 +8,7 @@
 
 <h1>Wyszukaj swoją trasę:</h1>
 <main>
-	<div class="p-3 mb-4 rounded-1 bg-info container">
+	<div class="p-3 mb-4 rounded-1 border container">
 		<div class="row">
 			<div class="col">
 				<label for="czas_od" class="form-label">Odjazd: <span id="rangeValue1">0</span></label><br />
@@ -29,12 +29,6 @@
 		</div>
 		<div class="row">
 			<div class="col">
-				<select class="form-select m-3 d-inline" style="width: auto;">
-					<option hidden selected>Wybierz typ</option>
-					<option value="v1" class="pl-0">typ1</option>
-					<option value="v2">typ2</option>
-					<option value="v3">typ3</option>
-				</select>
 				<button class="btn btn-primary m-3" @onclick="Find">Wyszukaj</button>
 			</div>
 		</div>
