@@ -40,7 +40,9 @@
 } 
 
 @if (!isLoading && !allDataLoaded) {
-    <button @onclick="() => LoadMore()"></button>
+    <div class="text-center">
+        <button @onclick="() => LoadMore()" class="btn btn-primary" style="margin-top: 30px;">Załaduj więcej</button>
+    </div>
 } else if (isLoading) {
     <p>Wczytywanie...</p>
 } 
