@@ -1,6 +1,8 @@
 ﻿@page "/Linie"
 @using LiveTransit.Services
 
+@rendermode InteractiveServer
+
 <PageTitle>Linie</PageTitle>
 
 <h1>Autobusy</h1>
@@ -37,15 +39,41 @@
     </div>
 } 
 
+@if (!isLoading && !allDataLoaded) {
+    <button @onclick="() => LoadMore()"></button>
+} else if (isLoading) {
+    <p>Wczytywanie...</p>
+} 
+
 
 @code {
     [Inject]
     public IRouteService routeService { get; set; }
 
+    private bool isLoading;
+    private bool allDataLoaded;
+
+    private int currentIndex = 0;
+    private const int pageSize = 10;
+
     public List<string> routes { get; set; }
 
     protected override async Task OnInitializedAsync() {
-        routes = (await routeService.GetLinesWithRoutes()).ToList();
+        routes = new List<string>();//(await routeService.GetLinesWithRoutes()).ToList();
+        await LoadMore();
     }
 
+    public async Task LoadMore() {
+        isLoading = true;
+        var newItems = (await routeService.GetRoutesFrom(currentIndex, pageSize)).ToList();
+
+        if (newItems.Count() == 0) {
+            allDataLoaded = true;
+        } else {
+            routes.AddRange(newItems);
+            currentIndex += pageSize;
+        }
+        isLoading = false;
+        StateHasChanged();
+    }
 }
