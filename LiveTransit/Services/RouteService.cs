@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿
+using LiveTransit.Models;
+using Microsoft.AspNetCore.Components;
 using System.Text.Json;
 
 namespace LiveTransit.Services
@@ -53,5 +55,30 @@ namespace LiveTransit.Services
 
             return items;
         }
-    }
+
+		public async Task<IEnumerable<RouteModelInternal>> GetFullRoutes(int startHours, int endHours, string startCity, string endCity) {
+			var uriBuilder = new UriBuilder("Full");
+
+			var query = System.Web.HttpUtility.ParseQueryString(uriBuilder.Query);
+			query["startHours"] = startHours.ToString();
+			query["endHours"] = endHours.ToString();
+			query["startCity"] = startCity;
+			query["endCity"] = endCity;
+			uriBuilder.Query = query.ToString();
+
+			var url = uriBuilder.ToString();
+
+			HttpContent content = _httpClient.GetAsync(url).Result.Content;
+
+			var route = await content.ReadAsStringAsync();
+			var routes = JsonSerializer.Deserialize<IEnumerable<RouteModelInternal>>(route);
+
+
+			if (routes is null) {
+				return Enumerable.Empty<RouteModelInternal>();
+			}
+
+			return routes;
+		}
+	}
 }
