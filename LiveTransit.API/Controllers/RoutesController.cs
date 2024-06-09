@@ -85,6 +85,9 @@ namespace LiveTransit.API.Controllers {
             List<RouteModel> finalValues = new List<RouteModel>();
             
             foreach ( var group in resultGrouped ) {
+                if (group.Value.All(e => e.Name != endCity)) {
+                    continue;
+                }
                 var values = group.Value
                             .SkipWhile(e => e.Name != startCity)
                             .TakeWhile(e => e.Name != endCity);
