@@ -11,11 +11,12 @@
 	<div class="p-3 mb-4 rounded-1 container">
 		<div class="row">
 			<div class="col">
-				<label for="czas_od" class="form-label">Odjazd: <span id="rangeValue1">0</span></label><br />
+				<label><b>Czas przyjazdu:</b></label><br />
+				<label for="czas_od" class="form-label"><b>Od godzinny: <span id="rangeValue1">0</span></b></label><br />
 				<input type="range" class="form-range" min="0" max="24" value="@startHours" id="czas_od" oninput="if(parseInt(document.getElementById('czas_do').value)>=parseInt(document.getElementById('czas_od').value)){rangeValue1.innerText = this.value}else{document.getElementById('czas_od').value=document.getElementById('czas_do').value}">
 			</div>
-			<div class="col">
-				<label for="czas_do" class="form-label">Przyjazd: <span id="rangeValue2">24</span></label><br />
+			<div class="col"><br />
+				<label for="czas_do" class="form-label"><b>Do godzinny: <span id="rangeValue2">24</span></b></label><br />
 				<input type="range" class="form-range" min="0" max="24" value="24" id="czas_do" oninput="if(parseInt(document.getElementById('czas_do').value)>=parseInt(document.getElementById('czas_od').value)){rangeValue2.innerText = this.value}else{document.getElementById('czas_do').value=document.getElementById('czas_od').value}">
 			</div>
 		</div>
@@ -29,12 +30,15 @@
 		</div>
 		<div class="row">
 			<div class="col">
-				<select class="form-select m-3 d-inline" style="width: auto;">
+				<!--
+					<select class="form-select m-3 d-inline" style="width: auto;">
 					<option hidden selected>Wybierz typ</option>
 					<option value="v1" class="pl-0">typ1</option>
 					<option value="v2">typ2</option>
 					<option value="v3">typ3</option>
 				</select>
+				-->
+				
 				<button class="btn btn-primary m-3" @onclick="Find">Wyszukaj</button>
 			</div>
 		</div>
