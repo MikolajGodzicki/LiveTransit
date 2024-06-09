@@ -8,7 +8,7 @@
 
 <h1>Wyszukaj swoją trasę:</h1>
 <main>
-	<div class="p-3 mb-4 rounded-1 bg-info container">
+	<div class="p-3 mb-4 rounded-1  container">
 		<div class="row">
 			<div class="col">
 				<label for="czas_od" class="form-label">Odjazd: <span id="rangeValue1">0</span></label><br />
@@ -21,9 +21,23 @@
 		</div>
 		<div class="row">
 			<div class="col">
-				<input type="text" class="form-control" placeholder="Punkt startu" aria-label="First name" @bind="startCity">
+				<select @bind="startCity" class="form-control">
+					@if (stops is not null) {
+						@foreach (var stop in stops) {
+							<option value="@stop">@stop</option>
+						}
+					}
+				</select>
+				<input type="text" class="form-control" placeholder="Punkt startu" aria-label="First name">
 			</div>
 			<div class="col">
+				<select @bind="endCity" class="form-control">
+					@if (stops is not null) {
+						@foreach (var stop in stops) {
+							<option value="@stop">@stop</option>
+						}
+					}
+				</select>
 				<input type="text" class="form-control" placeholder="Punkt docelowy" aria-label="Last name" @bind="endCity">
 			</div>
 		</div>
@@ -83,6 +97,12 @@
 	public IRouteService routeService { get; set; }
 
 	public IEnumerable<RouteModelInternal> routes { get; set; }
+
+	public IEnumerable<string> stops { get; set; }
+
+	protected override async Task OnInitializedAsync() {
+		stops = await routeService.GetStops();
+	}
 
 	public async Task Find() {
 		Console.WriteLine("Find");
