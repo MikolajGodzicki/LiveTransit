@@ -70,7 +70,7 @@ namespace LiveTransit.Services
 
 			HttpContent content = _httpClient.GetAsync(url).Result.Content;
 
-			var route = await content.ReadAsStringAsync();
+			var route = (await content.ReadAsStringAsync()).Replace("hours", "Hours").Replace("minutes", "Minutes").Replace("seconds", "Seconds");
 			var routes = JsonSerializer.Deserialize<IEnumerable<RouteModelInternal>>(route);
 
 
