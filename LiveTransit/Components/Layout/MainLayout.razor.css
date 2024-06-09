@@ -43,8 +43,8 @@ main {
     .sidebar {
         width: 85px;
         height: 100vh;
-        position: sticky;
-        bottom: 0;
+        position:sticky;
+        top: 0;
     }
 
     .top-row {
