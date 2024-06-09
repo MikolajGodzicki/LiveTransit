@@ -8,7 +8,7 @@
 
 <h1>Wyszukaj swoją trasę:</h1>
 <main>
-	<div class="p-3 mb-4 rounded-1 border container">
+	<div class="p-3 mb-4 rounded-1 container">
 		<div class="row">
 			<div class="col">
 				<label for="czas_od" class="form-label">Odjazd: <span id="rangeValue1">0</span></label><br />
@@ -29,20 +29,46 @@
 		</div>
 		<div class="row">
 			<div class="col">
+				<select class="form-select m-3 d-inline" style="width: auto;">
+					<option hidden selected>Wybierz typ</option>
+					<option value="v1" class="pl-0">typ1</option>
+					<option value="v2">typ2</option>
+					<option value="v3">typ3</option>
+				</select>
 				<button class="btn btn-primary m-3" @onclick="Find">Wyszukaj</button>
 			</div>
 		</div>
 	</div>
-	<div class="p-3 rounded-1 bg-primary container">
-		<p>Wyniki</p>
+
+	<h2>Wyniki:</h2>
+	<div class="p-3 rounded-1 container">
 		@if (routes is null) {
 			<p>Prosimy o wyszukanie </p>
 		} else {
 			foreach (RouteModelInternal route in routes) {
-				<h2>@route.shortName</h2>
-				<h3>@route.arrivalTime</h3>
-				<h3>@route.departureTime</h3>
-				<h4>@route.name</h4>
+				<div class="card" style="margin-top:5px">
+					<div class="card-body linie">
+						<div>
+							<div class="container">
+								<div class="row">
+									<div class="col tlo">
+										<p style="background: #3366ff; color:white; font-size:large;" class="centered"><b>Linia: @route.shortName</b></p>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col title">
+										<p class="centered" style="font-size:large;"><b>Czas przyjazdu: @route.arrivalTime, Czas odjazdu: @route.departureTime</b></p>
+									</div>
+								</div>
+								<div>
+									<div class="col details">
+										<p class="centered" style="font-size:large;"><b>Przystanek: @route.name</b></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			}
 		}
 	</div>
@@ -53,8 +79,8 @@
 @code {
 	private int startHours = 0;
 	private int endHours = 24;
-	private string startCity = "Zaczarnie";
-	private string endCity = "Brzozówka";
+	private string startCity = "";
+	private string endCity = "";
 
 	[Inject]
 	private IJSRuntime JSRuntime { get; set; }
